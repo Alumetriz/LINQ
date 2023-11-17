@@ -54,7 +54,8 @@ public class QueryHelper : IQueryHelper
     /// <summary>
     /// Count unique cargo types
     /// </summary>
-    public int CountUniqCargoTypes(IEnumerable<Delivery> deliveries) => 0; //TODO: Завдання 6
+    public int CountUniqCargoTypes(IEnumerable<Delivery> deliveries) =>
+        deliveries.DistinctBy((delivery) => delivery.CargoType).Count(); //TODO: Завдання 6
 
     /// <summary>
     /// Group deliveries by status and count deliveries in each group
