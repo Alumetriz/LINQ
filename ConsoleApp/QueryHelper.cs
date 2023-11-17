@@ -9,7 +9,8 @@ public class QueryHelper : IQueryHelper
     /// <summary>
     /// Get Deliveries that has payed
     /// </summary>
-    public IEnumerable<Delivery> Paid(IEnumerable<Delivery> deliveries) => new List<Delivery>(); //TODO: Завдання 1
+    public IEnumerable<Delivery> Paid(IEnumerable<Delivery> deliveries) =>
+        deliveries.Where((delivery) => delivery.PaymentId != null); //TODO: Завдання 1
 
     /// <summary>
     /// Get Deliveries that now processing by system (not Canceled or Done)
