@@ -70,7 +70,8 @@ public class QueryHelper : IQueryHelper
     public IEnumerable<AverageGapsInfo> AverageTravelTimePerDirection(IEnumerable<Delivery> deliveries) =>
         deliveries.GroupBy((delivery) => delivery.Direction).Select((iGroup) => new AverageGapsInfo()
         {
-            AverageGap = iGroup.Average((delivery) => (delivery.ArrivalPeriod.Start.Value - delivery.LoadingPeriod.End.Value).Minutes),
+            AverageGap = iGroup.Average((delivery) =>
+                (delivery.ArrivalPeriod.Start.Value - delivery.LoadingPeriod.End.Value).Minutes),
             StartCity = iGroup.Key.Origin.City,
             EndCity = iGroup.Key.Destination.City,
         }); //TODO: Завдання 8
@@ -82,5 +83,7 @@ public class QueryHelper : IQueryHelper
         Func<TElement, TOrderingKey> ordering,
         Func<TElement, bool>? filter = null,
         int countOnPage = 100,
-        int pageNumber = 1) => new List<TElement>(); //TODO: Завдання 9 
+        int pageNumber = 1) =>
+        elements.OrderBy(ordering).Where(filter ?? ((t) => true)).Skip((pageNumber - 1) * countOnPage)
+            .Take(countOnPage); //TODO: Завдання 9 
 }
