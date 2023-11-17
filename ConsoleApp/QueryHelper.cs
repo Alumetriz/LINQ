@@ -40,13 +40,16 @@ public class QueryHelper : IQueryHelper
     /// Get first ten Deliveries that starts at specified city and have specified type
     /// </summary>
     public IEnumerable<Delivery> DeliveriesByCityAndType(IEnumerable<Delivery> deliveries, string cityName,
-        DeliveryType type) => deliveries.Where((delivery) => delivery.Direction.Origin.City == cityName && delivery.Type == type).Take(10); //TODO: Завдання 4
+        DeliveryType type) =>
+        deliveries.Where((delivery) => delivery.Direction.Origin.City == cityName && delivery.Type == type)
+            .Take(10); //TODO: Завдання 4
 
     /// <summary>
     /// Order deliveries by status, then by start of loading period
     /// </summary>
     public IEnumerable<Delivery> OrderByStatusThenByStartLoading(IEnumerable<Delivery> deliveries) =>
-        new List<Delivery>(); //TODO: Завдання 5
+        deliveries.OrderBy((delivery) => delivery.Status)
+            .ThenBy((delivery) => delivery.LoadingPeriod.Start); //TODO: Завдання 5
 
     /// <summary>
     /// Count unique cargo types
