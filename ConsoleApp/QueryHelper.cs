@@ -68,7 +68,12 @@ public class QueryHelper : IQueryHelper
     /// Group deliveries by start-end city pairs and calculate average gap between end of loading period and start of arrival period (calculate in minutes)
     /// </summary>
     public IEnumerable<AverageGapsInfo> AverageTravelTimePerDirection(IEnumerable<Delivery> deliveries) =>
-        new List<AverageGapsInfo>(); //TODO: Завдання 8
+        deliveries.GroupBy((delivery) => delivery.Direction).Select((iGroup) => new AverageGapsInfo()
+        {
+            AverageGap = iGroup.Average((delivery) => (delivery.ArrivalPeriod.Start.Value - delivery.LoadingPeriod.End.Value).Minutes),
+            StartCity = iGroup.Key.Origin.City,
+            EndCity = iGroup.Key.Destination.City,
+        }); //TODO: Завдання 8
 
     /// <summary>
     /// Paging helper
